@@ -26,4 +26,22 @@ const SDK = {
 
     },
 
+    login: (username, password, callback) => {
+        SDK.request({
+            data: {
+                username: username,
+                password: password
+            },
+            url: "/user/login",
+            method: "POST"
+        }, (err, data) => {
+
+            if (err) return callback(err);
+
+            SDK.Storage.persist("tokenId", data.id);
+
+            callback(null, data);
+        });
+    },
+
 };
