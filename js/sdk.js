@@ -1,6 +1,7 @@
 const SDK = {
     serverURL:"http://localhost:8080/api",
-    request: (options, cb) => {
+
+    request: (options, callback) => {
 
         let headers = {};
         if (options.headers) {
@@ -17,31 +18,30 @@ const SDK = {
             dataType: "json",
             data: JSON.stringify(options.data),
             success: (data, status, xhr) => {
-                cb(null, data, status, xhr);
+                callback(null, data, status, xhr);
             },
             error: (xhr, status, errorThrown) => {
-                cb({xhr: xhr, status: status, error: errorThrown});
+                callback({xhr: xhr, status: status, error: errorThrown});
             }
         });
 
     },
 
-    login: (username, password, callback) => {
+    signup: (username, password, callback) => {
         SDK.request({
             data: {
                 username: username,
                 password: password
             },
-            url: "/user/login",
+            url: "/user/signup",
             method: "POST"
         }, (err, data) => {
-
             if (err) return callback(err);
-
-            SDK.Storage.persist("tokenId", data.id);
 
             callback(null, data);
         });
     },
+
+
 
 };
