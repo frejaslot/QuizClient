@@ -1,6 +1,7 @@
 const SDK = {
-    serverURL:"http://localhost:8080/api",
-    request: (options, cb) => {
+    serverURL: "http://localhost:8080/api",
+
+    request: (options, callback) => {
 
         let headers = {};
         if (options.headers) {
@@ -15,68 +16,119 @@ const SDK = {
             headers: headers,
             contentType: "application/json",
             dataType: "json",
-            data: JSON.stringify(options.data),
+            data: JSON.stringify(SDK.encrypt(JSON.stringify(options.data))),
             success: (data, status, xhr) => {
-                cb(null, data, status, xhr);
+                callback(null, SDK.decrypt(data), status, xhr);
             },
             error: (xhr, status, errorThrown) => {
-                cb({xhr: xhr, status: status, error: errorThrown});
+                callback({xhr: xhr, status: status, error: errorThrown});
             }
+        });
+    },
+
+    signUp: (username, password, callback) => {
+        SDK.request({
+            data: {
+                username: username,
+                password: password
+            },
+            url: "/user/signup",
+            method: "POST"
+        }, (err, data) => {
+            if (err) return callback(err);
+            callback(null, data);
+        });
+    },
+
+    logIn: (username, password, callback) => {
+        SDK.request({
+            data: {
+                username: username,
+                password: password
+            },
+            url: "/user/login",
+            method: "POST"
+        }, (err, data) => {
+            if (err) return callback(err);
+            SDK.Storage.persist("myToken", data);
+            callback(null, data);
+        });
+    },
+
+    loadCurrentUser: (callback) => {
+        SDK.request({
+            method: "GET",
+            url: "/user/myuser",
+            headers: {
+                authorization: SDK.Storage.load("myToken"),
+            },
+        }, (err, user) => {
+            if (err) return callback(err);
+            SDK.Storage.persist("myUser", user);
+            callback(null, user);
         });
 
     },
 
-    User: {
-        findAll: (cb) => {
-            SDK.request({method: "GET", url: "/staffs"}, cb);
-        },
-        current: () => {
-            return SDK.Storage.load("user");
-        },
-        logOut: () => {
-            SDK.Storage.remove("tokenId");
-            SDK.Storage.remove("userId");
-            SDK.Storage.remove("user");
-            window.location.href = "../index.html";
-        },
-        login: (email, password, cb) => {
-            SDK.request({
-                data: {
-                    email: email,
-                    password: password
-                },
-                url: "/users/login?include=user",
-                method: "POST"
-            }, (err, data) => {
+    currentUser: () => {
+        const loadedUser = SDK.Storage.load("User");
+        return loadedUser.currentUser;
+    },
 
-                //On login-error
-                if (err) return cb(err);
+    logOut: (userId, callback) => {
+        SDK.request({
+            method: "POST",
+            url: "/user/logout",
+            data: userId,
+        }, (err, data) => {
+            if(err) return callback(err);
+            callback(null, data);
+        });
 
-                SDK.Storage.persist("tokenId", data.id);
-                SDK.Storage.persist("userId", data.userId);
-                SDK.Storage.persist("user", data.user);
+    },
 
-                cb(null, data);
-
-            });
+    Storage: {
+        prefix: "DøkQuizSDK",
+        persist: (key, value) => {
+            window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
         },
-        loadNav: (cb) => {
-            $("#nav-container").load("nav.html", () => {
-                const currentUser = SDK.User.current();
-                if (currentUser) {
-                    $(".navbar-right").html(`
-            <li><a href="my-page.html">Your orders</a></li>
-            <li><a href="#" id="logout-link">Logout</a></li>
-          `);
-                } else {
-                    $(".navbar-right").html(`
-            <li><a href="login.html">Log-in <span class="sr-only">(current)</span></a></li>
-          `);
-                }
-                $("#logout-link").click(() => SDK.User.logOut());
-                cb && cb();
-            });
+        load: (key) => {
+            const val = window.localStorage.getItem(SDK.Storage.prefix + key);
+            try {
+                return JSON.parse(val);
+            }
+            catch (e) {
+                return val;
+            }
+        },
+        remove: (key) => {
+            window.localStorage.removeItem(SDK.Storage.prefix + key);
         }
     },
 
+    encrypt: (encrypt) => {
+        if (encrypt !== undefined && encrypt.length !== 0) {
+            const key = ['L', 'Y', 'N'];
+            let isEncrypted = "";
+            for (let i = 0; i < encrypt.length; i++) {
+                isEncrypted += (String.fromCharCode((encrypt.charAt(i)).charCodeAt(0) ^ (key[i % key.length]).charCodeAt(0)))
+            }
+            return isEncrypted;
+        } else {
+            return encrypt;
+        }
+    },
+
+    decrypt: (decrypt) => {
+        if (decrypt !== undefined && decrypt.length !== 0) {
+            const key = ['L', 'Y', 'N'];
+            let isDecrypted = "";
+            for (let i = 0; i < decrypt.length; i++) {
+                isDecrypted += (String.fromCharCode((decrypt.charAt(i)).charCodeAt(0) ^ (key[i % key.length]).charCodeAt(0)))
+            }
+            return isDecrypted;
+        } else {
+            return decrypt;
+        }
+    },
 };
