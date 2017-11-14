@@ -24,10 +24,9 @@ const SDK = {
                 callback({xhr: xhr, status: status, error: errorThrown});
             }
         });
-
     },
 
-    signup: (username, password, callback) => {
+    signUp: (username, password, callback) => {
         SDK.request({
             data: {
                 username: username,
@@ -37,11 +36,75 @@ const SDK = {
             method: "POST"
         }, (err, data) => {
             if (err) return callback(err);
-
             callback(null, data);
         });
     },
 
+    logIn: (username, password, callback) => {
+        SDK.request({
+            data: {
+                username: username,
+                password: password
+            },
+            url: "/user/login",
+            method: "POST"
+        }, (err, data) => {
+            if (err) return callback(err);
+            SDK.Storage.persist("myToken", data);
+            callback(null, data);
+        });
+    },
+
+    loadCurrentUser: (callback) => {
+        SDK.request({
+            method: "GET",
+            url: "/user/myuser",
+            headers: {
+                authorization: SDK.Storage.load("myToken"),
+            },
+        }, (err, user) => {
+            if (err) return callback(err);
+            SDK.Storage.persist("myUser", user);
+            callback(null, user);
+        });
+
+    },
+
+    currentUser: () => {
+        const loadedUser = SDK.Storage.load("User");
+        return loadedUser.currentUser;
+    },
+
+    logOut: (userId, callback) => {
+        SDK.request({
+            method: "POST",
+            url: "/user/logout",
+            data: userId,
+        }, (err, data) => {
+            if(err) return callback(err);
+            callback(null, data);
+        });
+
+    },
+
+    Storage: {
+        prefix: "DøkQuizSDK",
+        persist: (key, value) => {
+            window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
+        },
+        load: (key) => {
+            const val = window.localStorage.getItem(SDK.Storage.prefix + key);
+            try {
+                return JSON.parse(val);
+            }
+            catch (e) {
+                return val;
+            }
+        },
+        remove: (key) => {
+            window.localStorage.removeItem(SDK.Storage.prefix + key);
+        }
+    },
 
     encrypt: (encrypt) => {
         if (encrypt !== undefined && encrypt.length !== 0) {
