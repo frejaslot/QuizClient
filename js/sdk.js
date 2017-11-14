@@ -71,7 +71,7 @@ const SDK = {
     },
 
     currentUser: () => {
-        const loadedUser = SDK.Storage.load("User");
+        const loadedUser = SDK.Storage.load("myUser");
         return loadedUser.currentUser;
     },
 
