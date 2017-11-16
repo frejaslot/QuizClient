@@ -1,5 +1,8 @@
 $(document).ready(() => {
+
+    SDK.loadNav();
     const currentUser = SDK.currentUser();
+
 
     $("#profile-button").on("click", () => {
 

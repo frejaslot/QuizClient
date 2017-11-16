@@ -64,10 +64,9 @@ const SDK = {
             },
         }, (err, user) => {
             if (err) return callback(err);
-            SDK.Storage.persist("myUser", user);
+                SDK.Storage.persist("myUser", user);
             callback(null, user);
         });
-
     },
 
     currentUser: () => {
@@ -84,7 +83,14 @@ const SDK = {
             if(err) return callback(err);
             callback(null, data);
         });
+    },
 
+    loadNav:(callback) =>{
+        if (SDK.currentUser().type === 1) {
+            $("#nav-container").load("navAdmin.html", () => {});
+        } else if (SDK.currentUser().type === 2) {
+            $("#nav-container").load("navUser.html", () => {});
+        }
     },
 
     Storage: {

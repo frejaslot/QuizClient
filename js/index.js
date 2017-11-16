@@ -25,13 +25,13 @@ $(document).ready(() => {
                 }
                 else {
                     SDK.loadCurrentUser((err, data) => {
-                        if (err && err.xhr.status == 401) {
+                        if (err && err.xhr.status === 401) {
                             window.alert("Wrong username or password");
                         } else {
                             console.log(data)
-                            if (SDK.currentUser().type == 1) {
+                            if (SDK.currentUser().type === 1) {
                                 window.location.href = "admin.html";
-                            } else if (SDK.currentUser().type == 2) {
+                            } else if (SDK.currentUser().type === 2) {
                                 window.location.href = "user.html";
                             }
                         }

@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <link rel="stylesheet" href="lib/css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+
     <meta charset="UTF-8">
     <title>Admin</title>
 </head>
 <body>
+<div id="nav-container"></div>
+    <div class="container">
+        <h1>Admin</h1>
+        <button id="logOut-button">Log ud</button>
 
-<h1>Admin</h1>
+    </div>
 
 <footer class="footer" align="center">
     <p>2017 © All rights reserved - Doek Quiz Inc.</p>
@@ -16,6 +24,7 @@
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
 <script src="js/admin.js"></script>
+    <script> SDK.loadNav();</script>
 
 </body>
 </html>
