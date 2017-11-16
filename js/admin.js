@@ -1,12 +1,10 @@
 $(document).ready(() => {
     const currentUser = SDK.currentUser();
-    const courseList = $("#list-group");
-
 
     $("#logOut-button").on("click", () => {
         const userId = currentUser.userId;
         SDK.logOut(userId, (err, data) => {
-            if(err && err.xhr.status === 401) {
+            if (err && err.xhr.status === 401) {
                 $(".form-group").addClass("has-error");
             } else {
                 window.location.href = "index.html";
@@ -15,5 +13,17 @@ $(document).ready(() => {
             }
         });
     });
+
+    SDK.loadCourses((err, data)=>{
+        const courses = JSON.parse(data);
+        console.log(courses);
+
+        $.each(courses, (i, val) => {
+            var tr = '<tr>';
+            tr += '<td> <button class="courseBtn" data-key="' + (i+1) + '">'+courses[i].courseTitle + '</button></td>';
+            $("#courseList").append(tr);
+        });
+    });
+});
 
 

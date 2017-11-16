@@ -85,13 +85,27 @@ const SDK = {
         });
     },
 
-    loadNav:(callback) =>{
-        if (SDK.currentUser().type === 1) {
-            $("#nav-container").load("navAdmin.html", () => {});
-        } else if (SDK.currentUser().type === 2) {
-            $("#nav-container").load("navUser.html", () => {});
-        }
+    loadNavAdmin:() =>{
+        $("#nav-containerA").load("navAdmin.html", () => {});
     },
+
+    loadNavUser:() =>{
+        $("#nav-containerU").load("navUser.html", () => {});
+    },
+
+    loadCourses: (callback) => {
+        SDK.request({
+            method: "GET",
+            url: "/course",
+            headers: {
+                authorization: SDK.Storage.load("myToken"),
+            },
+        }, (err, data) => {
+            if (err) return callback(err);
+            callback(null, data);
+        });
+    },
+
 
     Storage: {
         prefix: "DøkQuizSDK",

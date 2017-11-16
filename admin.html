@@ -9,11 +9,28 @@
     <title>Admin</title>
 </head>
 <body>
-<div id="nav-container"></div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">DØKquiz</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="admin.html">Distribuerede systemer</a></li>
+                <li><a href="admin.html">Forandringsledelse</a></li>
+                <li><a href="admin.html">Makroøkonomi</a></li>
+                <li><a href="admin.html">VØS 3: Finansiering</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id="logOut-button">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="nav-containerA"></div>
     <div class="container">
         <h1>Admin</h1>
-        <button id="logOut-button">Log ud</button>
-
+        <table><tbody id="courseList"></tbody></table>
     </div>
 
 <footer class="footer" align="center">
@@ -24,7 +41,6 @@
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
 <script src="js/admin.js"></script>
-    <script> SDK.loadNav();</script>
 
 </body>
 </html>

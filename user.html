@@ -4,18 +4,38 @@
 
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <meta charset="UTF-8">
     <title>User</title>
 </head>
 <body>
-<div id="nav-container"></div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">DØKquiz</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="user.html">Profile</a></li>
+                <li><a href="userQuiz.html"><b>Quiz!</b></a></li>
+                <li><a href="userResult.html">Result</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" id="logOut-button">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
-        <h1>User</h1>
-        <button id="profile-button">Profil</button>
-        <button id="result-button">Results</button>
-        <button id="quiz-button">Quizzes</button>
-        <button id="logOut-button">Log ud</button>
+        <h1>My profile:</h1>
+    <table style="width: 450px;">
+        <tr><td style="width: 100px;"><h1><span class="glyphicon glyphicon-user"></h1></td><td></td><td></td>
+        <tr><td></td><td><h5>Username:</h5></td><td class="myUser"></td></tr>
+        <tr><td></td><td><h5>Password:</h5></td><td><h5>******</h5></td></tr><tr></tr>
+        <tr><td></td><td></td><td height="100" style="width: 250px;"><button>Change password</button></td></tr>
+    </table>
 </div>
 
 <footer class="footer" align="center">
@@ -26,7 +46,6 @@
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
 <script src="js/user.js"></script>
-<script> SDK.loadNav();</script>
 
 </body>
 </html>

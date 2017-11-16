@@ -1,22 +1,11 @@
 $(document).ready(() => {
     const currentUser = SDK.currentUser();
 
-    $("#profile-button").on("click", () => {
+    $(".navbar-right").html(`
+        <li><a href="#" id="logOut">Log out</a></li>
+    `);
 
-        window.location.href = "user.html";
-    });
-
-    $("#result-button").on("click", () => {
-
-        window.location.href = "userResult.html";
-    });
-
-    $("#quiz-button").on("click", () => {
-
-        window.location.href = "userQuiz.html";
-    });
-
-    $("#logOut-button").on("click", () => {
+    $("#logOut").on("click", () => {
 
         const userId = currentUser.userId;
         SDK.logOut(userId, (err, data) => {
