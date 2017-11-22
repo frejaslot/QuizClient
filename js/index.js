@@ -32,7 +32,7 @@ $(document).ready(() => {
                             if (SDK.currentUser().type === 1) {
                                 window.location.href = "admin.html";
                             } else if (SDK.currentUser().type === 2) {
-                                window.location.href = "userQuiz.html";
+                                window.location.href = "userCourse.html";
                             }
                         }
                     });

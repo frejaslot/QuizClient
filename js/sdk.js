@@ -85,14 +85,6 @@ const SDK = {
         });
     },
 
-    loadNavAdmin:() =>{
-        $("#nav-containerA").load("navAdmin.html", () => {});
-    },
-
-    loadNavUser:() =>{
-        $("#nav-containerU").load("navUser.html", () => {});
-    },
-
     loadCourses: (callback) => {
         SDK.request({
             method: "GET",
@@ -106,6 +98,25 @@ const SDK = {
         });
     },
 
+    loadQuizzes: (callback) => {
+        const chosenCourse = SDK.Storage.load("chosenCourse");
+        const courseId = chosenCourse.courseId;
+
+        SDK.request({
+            method: "GET",
+            url: "/quiz/" + courseId,
+            headers: {
+                authorization: SDK.Storage.load("myToken"),
+            },
+        }, (err, data) => {
+            if (err) return callback(err);
+            callback(null, data);
+        });
+    },
+
+    takeQuiz: (callback) =>{
+
+    },
 
     Storage: {
         prefix: "DøkQuizSDK",

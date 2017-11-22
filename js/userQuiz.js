@@ -1,11 +1,7 @@
 $(document).ready(() => {
     const currentUser = SDK.currentUser();
 
-    $(".navbar-right").html(`
-        <li><a href="#" id="logOut">Log out</a></li>
-    `);
-
-    $("#logOut").on("click", () => {
+    $("#logOut-button").on("click", () => {
 
         const userId = currentUser.userId;
         SDK.logOut(userId, (err, data) => {
@@ -19,15 +15,42 @@ $(document).ready(() => {
         });
     });
 
-    SDK.loadCourses((err, data)=>{
-        const courses = JSON.parse(data);
-        console.log(courses);
+    SDK.loadQuizzes((err, data)=>{
+        if (err) throw err;
 
-        $.each(courses, (i, val) => {
+        $("#tablehead").append("<thead>\n" +
+            "            <th>Title</th>\n" +
+            "            <th>Description</th>\n" +
+            "            <th>Created By</th>\n" +
+            "            </thead>");
+
+        const course = SDK.Storage.load("chosenCourse")
+        var quizzes = JSON.parse(data);
+
+        $.each(quizzes, (i, val) => {
             var tr = '<tr>';
-            tr += '<td> <button class="courseBtn" data-key="' + (i+1) + '">'+courses[i].courseTitle + '</button></td>';
-            $("#courseList").append(tr);
-        });
+            tr += '<td>' + quizzes[i].quizTitle + '</td>';
+            tr += '<td>' + quizzes[i].quizDescription + '</td>';
+            tr += '<td>' + quizzes[i].createdBy + '</td>';
+            tr += '<td><button class="quizBtn btn btn-primary pull-left" data-key="' + (i+1) + '">Take this quiz!</button></td>';
+            tr += '</tr>';
+            $("#quizList").append(tr);
+            });
+
+            $('button.quizBtn').on('click', function () {
+                var name = $(this).closest("tr").find("td:eq(1)").text();
+
+                for (var i = 0; i < quiz.length; i++) {
+                    if (name === quiz[i].quizTitle) {
+                        SDK.Storage.persist("chosenQuiz", quiz[i]);
+
+                        window.location.href = "startquiz.html";
+
+                    }
+                }
+            });
+
+
 
 
     });

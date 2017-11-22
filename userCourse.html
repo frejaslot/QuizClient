@@ -6,20 +6,19 @@
     <link rel="stylesheet" href="css/main.css">
 
     <meta charset="UTF-8">
-    <title>Distribuerede systemer</title>
+    <title>Take Quiz!</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="admin.html">DIS Bookstore 2017</a>
+            <a class="navbar-brand">DØKquiz</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#" id="dis-button">Distribuerede systemer</a></li>
-                <li><a href="#" id="itf-button">Forandringsledelse</a></li>
-                <li><a href="#" id="makro-button">Makroøkonomi</a></li>
-                <li><a href="#" id="vos-button">VØS 3: Finansiering</a></li>
+                <li><a href="user.html">Profile</a></li>
+                <li class="active"><a href="userCourse.html"><b>Quiz!</b></a></li>
+                <li><a href="userResult.html">Result</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" id="logOut-button">Log out</a></li>
@@ -28,7 +27,7 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Admin</h1>
+    <h1>Choose a course...</h1>
     <table><tbody id="courseList"></tbody></table>
 </div>
 
@@ -39,7 +38,7 @@
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
-<script src="js/admin.js"></script>
+<script src="js/userCourse.js"></script>
 
 </body>
 </html>
