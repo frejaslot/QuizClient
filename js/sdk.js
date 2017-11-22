@@ -114,8 +114,20 @@ const SDK = {
         });
     },
 
-    takeQuiz: (callback) =>{
+    loadQuestions: (callback) =>{
+        const chosenQuiz = SDK.Storage.load("chosenQuiz");
+        const quizId = chosenQuiz.quizId;
 
+        SDK.request({
+            method: "GET",
+            url: "/question/" + quizId,
+            headers: {
+                authorization: SDK.Storage.load("myToken"),
+            },
+        }, (err, data) => {
+            if (err) return callback(err);
+            callback(null, data);
+        });
     },
 
     Storage: {

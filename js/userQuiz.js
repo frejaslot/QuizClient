@@ -24,7 +24,6 @@ $(document).ready(() => {
             "            <th>Created By</th>\n" +
             "            </thead>");
 
-        const course = SDK.Storage.load("chosenCourse")
         var quizzes = JSON.parse(data);
 
         $.each(quizzes, (i, val) => {
@@ -35,23 +34,17 @@ $(document).ready(() => {
             tr += '<td><button class="quizBtn btn btn-primary pull-left" data-key="' + (i+1) + '">Take this quiz!</button></td>';
             tr += '</tr>';
             $("#quizList").append(tr);
-            });
+        });
 
-            $('button.quizBtn').on('click', function () {
-                var name = $(this).closest("tr").find("td:eq(1)").text();
+        $('button.quizBtn').on('click', function () {
+            var name = $(this).closest("tr").find("td:eq(0)").text();
+            window.location.href = "userTakeQuiz.html";
 
-                for (var i = 0; i < quiz.length; i++) {
-                    if (name === quiz[i].quizTitle) {
-                        SDK.Storage.persist("chosenQuiz", quiz[i]);
-
-                        window.location.href = "startquiz.html";
-
-                    }
+            for (var i = 0; i < quizzes.length; i++) {
+                if (name === quizzes[i].quizTitle) {
+                    SDK.Storage.persist("chosenQuiz", quizzes[i]);
                 }
-            });
-
-
-
-
+            }
+        });
     });
 });
