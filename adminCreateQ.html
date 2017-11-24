@@ -10,7 +10,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="admin.html">DIS Bookstore 2017</a>
+            <a class="navbar-brand">DIS Bookstore 2017</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -20,7 +20,7 @@
                 <li><a href="#" id="vos-button">VØS 3: Finansiering</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" id="logOut-button">Log out</a></li>
+                <li><a href="#" id="logOut-button">Log ud</a></li>
             </ul>
         </div>
     </div>
@@ -29,14 +29,22 @@
     <div class="row" id="nav-container">
         <div class="row">
             <div class="col-lg-6">
-                <button id="return-button">Return to quizzes</button>
-                <div class="page-header"><h1>Create Quiz</h1></div>
+                <button id="return-button">Tilbage til quizzes</button>
+                <div class="page-header"><h1>Opret Quiz</h1></div>
                 <div class="jumbotron">
                     <div class="form-group">
                         <label class="control-label" for="quizTitle">Title</label>
                         <input type="text" class="form-control" id="quizTitle" placeHolder="Quiz title">
                     </div>
-                    <button id="create-button">Create Quiz</button>
+                    <div class="form-group">
+                        <label class="control-label" for="quizDescription">Description</label>
+                        <input type="text" class="form-control" id="quizDescription" placeHolder="Quiz description">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="quizAuthor">Author</label>
+                        <input type="text" class="form-control" id="quizAuthor" placeHolder="Quiz author">
+                    </div>
+                    <button id="createQ-button">Tilføj spørgsmål til quiz</button>
                 </div>
             </div>
         </div>
@@ -53,3 +61,4 @@
 <script src="js/adminCreateQ.js"></script>
 </body>
 </html>
+

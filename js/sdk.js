@@ -130,6 +130,23 @@ const SDK = {
         });
     },
 
+    createQuiz: (createdBy, questionCount, quizTitle, quizDescription, courseId, callback) => {
+        SDK.request({
+            data: {
+                createdBy: createdBy,
+                questionCount: questionCount,
+                quizTitle: quizTitle,
+                quizDescription: quizDescription,
+                courseId: courseId
+            },
+            url: "/quiz",
+            method: "POST"
+        }, (err, data) => {
+            if (err) return callback(err);
+            callback(null, data);
+        });
+    },
+
     loadQuestions: (callback) =>{
         const chosenQuiz = SDK.Storage.load("chosenQuiz");
         const quizId = chosenQuiz.quizId;

@@ -44,4 +44,22 @@ $(document).ready(() => {
     $("#return-button").on("click", () => {
         window.location.href = "adminQuiz.html";
     });
-}
+
+    $("#createQuiz-button").on("click", () => {
+
+        const createdBy = $("#quizAuthor").val();
+        const quizTitle = $("#quizTitle").val();
+        const quizDescription = $("#quizDescription").val();
+
+        if(!qTitle || !qDescription || !qAuthor) {
+            alert("Information is missing. Please try again");
+        } else {
+
+
+
+
+
+        }
+    });
+
+});

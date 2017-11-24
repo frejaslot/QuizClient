@@ -30,7 +30,7 @@ $(document).ready(() => {
                         } else {
                             console.log(data)
                             if (SDK.currentUser().type === 1) {
-                                window.location.href = "admin.html";
+                                window.location.href = "adminQuiz.html";
                             } else if (SDK.currentUser().type === 2) {
                                 window.location.href = "userCourse.html";
                             }
