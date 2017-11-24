@@ -11,6 +11,8 @@ $(document).ready(() => {
                 window.location.href = "index.html";
                 SDK.Storage.remove("myUser")
                 SDK.Storage.remove("myToken")
+                SDK.Storage.remove("chosenCourse")
+                SDK.Storage.remove("chosenQuiz")
             }
         });
     });

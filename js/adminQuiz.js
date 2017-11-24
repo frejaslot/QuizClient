@@ -10,7 +10,8 @@ $(document).ready(() => {
                 window.location.href = "index.html";
                 SDK.Storage.remove("myUser")
                 SDK.Storage.remove("myToken")
-                SDK.Storage.remove("courseId")
+                SDK.Storage.remove("chosenCourse")
+                SDK.Storage.remove("chosenQuiz")
             }
         });
     });
@@ -21,22 +22,23 @@ $(document).ready(() => {
         console.log(courses);
 
         $("#vos-button").on("click", () => {
-            SDK.Storage.persist("courseId", 1)
-            window.location.href = "adminDIS.html";
-        });
-        $("#dis-button").on("click", () => {
-            SDK.Storage.persist("courseId", 2)
-            window.location.href = "adminDIS.html";
-        });
-        $("#itf-button").on("click", () => {
-            SDK.Storage.persist("courseId", 3)
-            window.location.href = "adminDIS.html";
-        });
-        $("#makro-button").on("click", () => {
-            SDK.Storage.persist("courseId", 4)
-            window.location.href = "adminDIS.html";
+            SDK.Storage.persist("chosenCourse", courses[3])
+            window.location.href = "adminQuiz.html";
         });
 
+        $("#dis-button").on("click", () => {
+            SDK.Storage.persist("chosenCourse", courses[0])
+            window.location.href = "adminQuiz.html";
+        });
+
+        $("#itf-button").on("click", () => {
+            SDK.Storage.persist("chosenCourse", courses[1])
+            window.location.href = "adminQuiz.html";
+        });
+        $("#makro-button").on("click", () => {
+            SDK.Storage.persist("chosenCourse", courses[2])
+            window.location.href = "adminQuiz.html";
+        });
     });
 
     SDK.loadQuizzes((err, data) => {
@@ -57,11 +59,23 @@ $(document).ready(() => {
             tr += '<td>' + quizzes[i].quizDescription + '</td>';
             tr += '<td>' + quizzes[i].createdBy + '</td>';
             tr += '<td>' + quizzes[i].questionCount + '</td>';
+            tr += '<td><button class="quizDelBtn btn btn-primary pull-left" data-key="' + (i+1) + '">Delete quiz</button></td>';
             tr += '</tr>';
             i + 1;
             $("#quizList").append(tr);
         });
 
-        SDK.Storage.remove("courseId")
+        $('button.quizDelBtn').on('click', function () {
+
+            var name = $(this).closest("tr").find("td:eq(0)").text();
+
+            for (var i = 0; i < quizzes.length; i++) {
+                if (name === quizzes[i].quizTitle) {
+                    SDK.Storage.persist("chosenQuiz", quizzes[i]);
+                }
+            }
+            SDK.deleteQuiz((err, data) => {});
+            location.reload();
+        });
     });
 });
