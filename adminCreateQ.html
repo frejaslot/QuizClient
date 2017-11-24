@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
     <meta charset="UTF-8">
-    <title>Quizzes</title>
+    <title>Create quiz</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -13,7 +13,7 @@
             <a class="navbar-brand" href="admin.html">DIS Bookstore 2017</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" >
+            <ul class="nav navbar-nav">
                 <li><a href="#" id="dis-button">Distribuerede systemer</a></li>
                 <li><a href="#" id="itf-button">Forandringsledelse</a></li>
                 <li><a href="#" id="makro-button">Makroøkonomi</a></li>
@@ -26,9 +26,21 @@
     </div>
 </nav>
 <div class="container">
-    <button>Back to quizzes</button>
-    <h1>Admin</h1>
-    <table><tbody id="courseList"></tbody></table>
+    <div class="row" id="nav-container">
+        <div class="row">
+            <div class="col-lg-6">
+                <button id="return-button">Return to quizzes</button>
+                <div class="page-header"><h1>Create Quiz</h1></div>
+                <div class="jumbotron">
+                    <div class="form-group">
+                        <label class="control-label" for="quizTitle">Title</label>
+                        <input type="text" class="form-control" id="quizTitle" placeHolder="Quiz title">
+                    </div>
+                    <button id="create-button">Create Quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer class="footer" align="center">
@@ -38,7 +50,6 @@
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
-<script src="js/admin.js"></script>
-
+<script src="js/adminCreateQ.js"></script>
 </body>
 </html>

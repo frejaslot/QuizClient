@@ -51,6 +51,7 @@ $(document).ready(() => {
             "<th>Description</th>\n" +
             "<th>Created By</th>\n" +
             "<th>Question Count</th>\n" +
+            "<th><button class=\"quizCreateBtn btn btn-success pull-left\">Create quiz</button></th>\n" +
             "</thead>")
 
         $.each(quizzes, function (i, val) {
@@ -59,10 +60,14 @@ $(document).ready(() => {
             tr += '<td>' + quizzes[i].quizDescription + '</td>';
             tr += '<td>' + quizzes[i].createdBy + '</td>';
             tr += '<td>' + quizzes[i].questionCount + '</td>';
-            tr += '<td><button class="quizDelBtn btn btn-primary pull-left" data-key="' + (i+1) + '">Delete quiz</button></td>';
+            tr += '<td><button class="quizDelBtn btn btn-danger pull-left" data-key="' + (i+1) + '">Delete quiz</button></td>';
             tr += '</tr>';
             i + 1;
             $("#quizList").append(tr);
+        });
+
+        $('button.quizCreateBtn').on('click', function () {
+            window.location.href = "adminCreateQ.html";
         });
 
         $('button.quizDelBtn').on('click', function () {
