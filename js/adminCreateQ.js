@@ -45,20 +45,36 @@ $(document).ready(() => {
         window.location.href = "adminQuiz.html";
     });
 
-    $("#createQuiz-button").on("click", () => {
-
+    $("#createQ-button").on("click", () => {
         const createdBy = $("#quizAuthor").val();
         const quizTitle = $("#quizTitle").val();
         const quizDescription = $("#quizDescription").val();
+        const chosenCourse = SDK.Storage.load("chosenCourse");
+        const courseId = chosenCourse.courseId;
+        const questionCount = 5;
 
-        if(!qTitle || !qDescription || !qAuthor) {
+        if(!quizTitle || !quizDescription || !createdBy) {
             alert("Information is missing. Please try again");
         } else {
+            SDK.createQuiz(createdBy, quizTitle, quizDescription, courseId, questionCount, (err, data) => {
+                if (err && err.xhr.status == 400) {
+                    $(".form-group").addClass("Client fail");
+                }
+                else if (err) {
+                    console.log("Error")
+                } else {
+                    $("#quizTitle").val('');
+                    $("#quizDescription").val('');
+                    $("#quizAuthor").val('');
 
 
+                    //skifter sidebar
+                    //3 nye felter
+                    //var test = JSON.parse(data);
+                    //console.log(test);
 
-
-
+                }
+            });
         }
     });
 

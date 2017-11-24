@@ -130,17 +130,20 @@ const SDK = {
         });
     },
 
-    createQuiz: (createdBy, questionCount, quizTitle, quizDescription, courseId, callback) => {
+    createQuiz: (createdBy, quizTitle, quizDescription, courseId, questionCount, callback) => {
         SDK.request({
             data: {
                 createdBy: createdBy,
-                questionCount: questionCount,
                 quizTitle: quizTitle,
                 quizDescription: quizDescription,
-                courseId: courseId
+                courseId: courseId,
+                questionCount: questionCount
             },
-            url: "/quiz",
-            method: "POST"
+            url: "/quiz/",
+            method: "POST",
+            headers: {
+                authorization: SDK.Storage.load("myToken"),
+            },
         }, (err, data) => {
             if (err) return callback(err);
             callback(null, data);
