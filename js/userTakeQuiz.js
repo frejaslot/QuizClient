@@ -20,20 +20,34 @@ $(document).ready(() => {
         });
     });
 
-    SDK.loadQuestions((err, data)=>{
+    $(".header").html(`<h1 align="center">${quiz.quizTitle}</h1>`);
+    $(".header").html(`<h2 align="center">${quiz.quizDescription}</h2>`);
+
+    i = 0;
+    SDK.loadQuestions((err, data)=> {
+        var $table = $(".table");
         if (err) throw err;
         var questions = JSON.parse(data);
 
-        console.log(questions);
+        while (i < questions.length) {
+            var question = (questions[i].question);
 
-        $.each(questions, (i, val) => {
-            var tr = '<tr>';
-            tr += '<td>' + questions[i].question + '</td>';
-            tr += '</tr>';
-            $("#questionList").append(tr);
-        });
+            loadOptions(question);
 
+            function loadOptions(question) {
+
+                SDK.loadOptions(questions[i].questionId, (err, data) => {
+                    $(".table").append(`<p><b>${question}</b></p>`);
+
+                    var options = JSON.parse(data);
+                    var optionLength = options.length;
+
+                    for (var k = 0; k < optionLength; k++) {
+                        $(".table").append(`<p><input type="radio" name="option${question.questionId}"<br>  ${options[k].option} </p>`);
+                    }
+                });
+                i++;
+            }
+        }
     });
-
-
 });
