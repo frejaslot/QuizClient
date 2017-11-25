@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="quizDescription">Description</label>
-                        <input type="text" class="form-control" id="quizDescription" placeHolder="Quiz description">
+                        <textarea type="textarea" class="form-control" id="quizDescription" placeholder="Description"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="quizAuthor">Author</label>
@@ -50,6 +50,49 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+
+    <div class="modal fade bd-example-modal-lg" id="questionModal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title"></h1>
+                    <div class="question-added"></div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="control-label" for="question">Question</label>
+                            <textarea type="textarea" class="form-control" id="question" placeholder="Question"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="correct">Correct answer</label>
+                            <input type="text" class="form-control" id="correct" placeholder="Correct answer">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="wrong1">Wrong answer</label>
+                            <input type="text" class="form-control" id="wrong1" placeholder="Wrong answer 1">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="wrong2">Wrong answer</label>
+                            <input type="text" class="form-control" id="wrong2" placeholder="Wrong answer 2">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="wrong3">Wrong answer</label>
+                            <input type="text" class="form-control" id="wrong3" placeholder="Wrong answer 3">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="addQuestionButton">Add question</button>
+                        <button type="button" class="btn btn-primary" id="saveChangesButton">Go to quiz</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <footer class="footer" align="center">
     <p>2017 © All rights reserved - Doek Quiz Inc.</p>

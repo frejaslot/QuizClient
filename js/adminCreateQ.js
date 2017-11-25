@@ -67,12 +67,95 @@ $(document).ready(() => {
                     $("#quizDescription").val('');
                     $("#quizAuthor").val('');
 
+                    $('#questionModal').modal('show');
+                    var i = 1;
+                    $(".modal-title").html(`<h1>Question ${i}</h1>`);
+                    var createdQuiz = JSON.parse(data);
+                    const quizId = createdQuiz.quizId;
 
-                    //skifter sidebar
-                    //3 nye felter
-                    //var test = JSON.parse(data);
-                    //console.log(test);
+                    $("#addQuestionButton").click(() => {
+                        const createdQuestion = $("#question").val();
+                        const questionId = createdQuestion.questionId;
+                        
+                        SDK.createQuestion(createdQuestion, quizId, (err, data) => {
+                            if (err && err.xhr.status == 400) {
+                                $(".form-group").addClass("Client fail");
+                            }
+                            else if (err) {
+                                console.log("Error")
+                            } else {
+                                $("#question").val("");
 
+                                $(".modal-title").html(`<h1>Question ${++i}</h1>`);
+                                $(".question-added").html(`<h4 id="text">Question added</h4>`);
+
+                                const newQuestion = JSON.parse(data);
+                                const correct = $("#correct").val();
+                                const wrong1 = $("#wrong1").val();
+                                const wrong2 = $("#wrong2").val();
+                                const wrong3 = $("#wrong3").val();
+
+                                var isCorrect = 1;
+
+                                SDK.createOption(correct, questionId, isCorrect, (err, data) => {
+                                    if (err && err.xhr.status == 400) {
+                                        $(".form-group").addClass("Client fail");
+                                    }
+                                    else if (err) {
+                                        console.log("Error")
+                                    } else {
+                                        $("#correct").val("")
+
+                                        SDK.createOption(wrong1, questionId, isCorrect, (err, data) => {
+                                            if (err && err.xhr.status == 400) {
+                                                $(".form-group").addClass("Client fail");
+                                            }
+                                            else if (err) {
+                                                console.log("Error")
+                                            } else {
+                                                $("#wrong1").val("");
+
+                                                SDK.createOption(wrong2, questionId, isCorrect, (err, data) => {
+                                                    if (err && err.xhr.status == 400) {
+                                                        $(".form-group").addClass("Client fail");
+                                                    }
+                                                    else if (err) {
+                                                        console.log("Error")
+                                                    } else {
+                                                        $("#wrong2").val("");
+
+                                                        SDK.createOption(wrong3, questionId, isCorrect, (err, data) => {
+                                                            if (err && err.xhr.status == 400) {
+                                                                $(".form-group").addClass("Client fail");
+                                                            }
+                                                            else if (err) {
+                                                                console.log("Error")
+                                                            } else {
+                                                                $("#wrong3").val("");
+
+                                                            }
+                                                        });
+
+                                                    }
+                                                });
+
+                                            }
+                                        });
+
+                                    }
+                                });
+
+
+                            }
+                        });
+
+
+                    });
+                    $("#saveChangesButton").click(() => {
+                        window.location.href = "courseview.html"
+
+
+                    });
                 }
             });
         }

@@ -166,6 +166,54 @@ const SDK = {
         });
     },
 
+    createQuestion: (question, quizId, callback) => {
+        SDK.request({
+            data: {
+                question: question,
+                questionToQuizId: quizId
+            },
+            method: "POST",
+            url: "/question",
+            headers: {
+                authorization: SDK.Storage.load("myToken"),
+            }
+        }, (err, data) => {
+            if (err) return callback(err);
+            callback(null, data);
+        })
+    },
+
+    loadOptions: (questionId, cb) => {
+        SDK.request({
+            method: "GET",
+            url: "/option/" + questionId,
+            headers: {
+                authorization: SDK.Storage.load("myToken")
+            },
+        }, (err, options) => {
+            if (err) return cb(err);
+            cb(null, options)
+        });
+    },
+
+    createOption: (option, optionToQuestionId, isCorrect, callback) => {
+        SDK.request({
+            data: {
+                option: option,
+                optionToQuestionId: optionToQuestionId,
+                isCorrect: isCorrect
+            },
+            url: "/option",
+            method: "POST",
+            headers: {
+                authorization: SDK.Storage.load("Token"),
+            }
+        }, (err, data) => {
+            if (err) return callback(err);
+            callback(null, data);
+        })
+    },
+
     Storage: {
         prefix: "DøkQuizSDK",
         persist: (key, value) => {
