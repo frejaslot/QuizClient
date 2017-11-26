@@ -50,7 +50,6 @@ $(document).ready(() => {
             "<th>Title</th>\n" +
             "<th>Description</th>\n" +
             "<th>Created By</th>\n" +
-            "<th>Question Count</th>\n" +
             "<th><button class=\"quizCreateBtn btn btn-success pull-left\">Create quiz</button></th>\n" +
             "</thead>")
 
@@ -59,7 +58,6 @@ $(document).ready(() => {
             tr += '<td>' + quizzes[i].quizTitle + '</td>';
             tr += '<td>' + quizzes[i].quizDescription + '</td>';
             tr += '<td>' + quizzes[i].createdBy + '</td>';
-            tr += '<td>' + quizzes[i].questionCount + '</td>';
             tr += '<td><button class="quizDelBtn btn btn-danger pull-left" data-key="' + (i+1) + '">Delete quiz</button></td>';
             tr += '</tr>';
             i + 1;

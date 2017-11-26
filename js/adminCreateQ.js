@@ -100,7 +100,6 @@ $(document).ready(() => {
                                 const wrong3 = $("#wrong3").val();
 
                                 var isCorrect = 1;
-
                                 SDK.createOption(correct, optionToQuestionId, isCorrect, (err, data) => {
                                     console.log(data);
                                     if (err && err.xhr.status == 400) {
@@ -118,6 +117,7 @@ $(document).ready(() => {
                                             else if (err) {
                                                 console.log("Error")
                                             } else {
+                                                isCorrect = 0;
                                                 $("#wrong1").val("");
 
                                                 SDK.createOption(wrong2, optionToQuestionId, isCorrect, (err, data) => {
@@ -127,6 +127,7 @@ $(document).ready(() => {
                                                     else if (err) {
                                                         console.log("Error")
                                                     } else {
+                                                        isCorrect = 0;
                                                         $("#wrong2").val("");
 
                                                         SDK.createOption(wrong3, optionToQuestionId, isCorrect, (err, data) => {
@@ -136,25 +137,18 @@ $(document).ready(() => {
                                                             else if (err) {
                                                                 console.log("Error")
                                                             } else {
+                                                                isCorrect = 0;
                                                                 $("#wrong3").val("");
-
                                                             }
                                                         });
-
                                                     }
                                                 });
-
                                             }
                                         });
-
                                     }
                                 });
-
-
                             }
                         });
-
-
                     });
                     $("#saveQuiz-button").click(() => {
 
