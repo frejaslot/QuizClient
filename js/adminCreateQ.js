@@ -110,34 +110,31 @@ $(document).ready(() => {
                                     } else {
                                         $("#correct").val("")
 
-                                        SDK.createOption(wrong1, optionToQuestionId, isCorrect, (err, data) => {
+                                        SDK.createOption(wrong1, optionToQuestionId, isCorrect=0, (err, data) => {
                                             if (err && err.xhr.status == 400) {
                                                 $(".form-group").addClass("Client fail");
                                             }
                                             else if (err) {
                                                 console.log("Error")
                                             } else {
-                                                isCorrect = 0;
                                                 $("#wrong1").val("");
 
-                                                SDK.createOption(wrong2, optionToQuestionId, isCorrect, (err, data) => {
+                                                SDK.createOption(wrong2, optionToQuestionId, isCorrect=0, (err, data) => {
                                                     if (err && err.xhr.status == 400) {
                                                         $(".form-group").addClass("Client fail");
                                                     }
                                                     else if (err) {
                                                         console.log("Error")
                                                     } else {
-                                                        isCorrect = 0;
                                                         $("#wrong2").val("");
 
-                                                        SDK.createOption(wrong3, optionToQuestionId, isCorrect, (err, data) => {
+                                                        SDK.createOption(wrong3, optionToQuestionId, isCorrect=0, (err, data) => {
                                                             if (err && err.xhr.status == 400) {
                                                                 $(".form-group").addClass("Client fail");
                                                             }
                                                             else if (err) {
                                                                 console.log("Error")
                                                             } else {
-                                                                isCorrect = 0;
                                                                 $("#wrong3").val("");
                                                             }
                                                         });
