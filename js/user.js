@@ -1,10 +1,6 @@
 $(document).ready(() => {
     const currentUser = SDK.currentUser();
 
-    $(".navbar-right").html(`
-        <li><a href="#" id="logOut">Log out</a></li>
-    `);
-
     $("#logOut").on("click", () => {
 
         const userId = currentUser.userId;
