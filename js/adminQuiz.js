@@ -1,5 +1,10 @@
 $(document).ready(() => {
 
+    const chosenCourse = SDK.Storage.load("chosenCourse");
+    const courseTitle = chosenCourse.courseTitle;
+    $(".page-header").html(`<h1>${courseTitle}</h1>`);
+
+
     SDK.loadQuizzes((err, data) => {
         if (err) throw err;
         const quizzes = JSON.parse(data);
