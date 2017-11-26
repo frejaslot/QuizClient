@@ -1,13 +1,10 @@
 $(document).ready(() => {
 
-    $("#return-button").on("click", () => {
-
+    $("#returnBtn").on("click", () => {
         window.location.href = "index.html";
-
     });
 
-    $("#create-button").on("click", () => {
-
+    $("#createBtn").on("click", () => {
         const username = $("#username").val();
         const password = $("#password").val();
         const passwordV = $("#passwordV").val();
@@ -18,8 +15,7 @@ $(document).ready(() => {
             if(password.valueOf() === passwordV.valueOf()) {
                 SDK.signUp(username, password, (err, data) => {
                     if (err && err.xhr.status == 400) {
-                        console.log("Client fail");
-                        window.alert("This username does already exist");
+                        window.alert("This user does already exist");
                     } else if (err) {
                         console.log("Error");
                     } else {

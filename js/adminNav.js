@@ -1,7 +1,7 @@
 $(document).ready(() => {
     const currentUser = SDK.currentUser();
 
-    $("#logOut-button").on("click", () => {
+    $("#logOutBtn").on("click", () => {
         const userId = currentUser.userId;
         SDK.logOut(userId, (err, data) => {
             if (err && err.xhr.status === 401) {
@@ -21,21 +21,21 @@ $(document).ready(() => {
         const courses = JSON.parse(data);
         console.log(courses);
 
-        $("#vos-button").on("click", () => {
+        $("#vosBtn").on("click", () => {
             SDK.Storage.persist("chosenCourse", courses[3])
             window.location.href = "adminQuiz.html";
         });
 
-        $("#dis-button").on("click", () => {
+        $("#disBtn").on("click", () => {
             SDK.Storage.persist("chosenCourse", courses[0])
             window.location.href = "adminQuiz.html";
         });
 
-        $("#itf-button").on("click", () => {
+        $("#itfBtn").on("click", () => {
             SDK.Storage.persist("chosenCourse", courses[1])
             window.location.href = "adminQuiz.html";
         });
-        $("#makro-button").on("click", () => {
+        $("#makroBtn").on("click", () => {
             SDK.Storage.persist("chosenCourse", courses[2])
             window.location.href = "adminQuiz.html";
         });

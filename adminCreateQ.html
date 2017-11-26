@@ -4,65 +4,52 @@
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-    <meta charset="UTF-8">
     <title>Create quiz</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="admin.html">DØKquiz</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#" id="dis-button">Distribuerede systemer</a></li>
-                <li><a href="#" id="itf-button">Forandringsledelse</a></li>
-                <li><a href="#" id="makro-button">Makroøkonomi</a></li>
-                <li><a href="#" id="vos-button">VØS 3: Finansiering</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" id="logOut-button">Log ud</a></li>
-            </ul>
-        </div>
+    <div class="navbar-header">
+        <a class="navbar-brand" href="admin.html">DØKquiz</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="#" id="disBtn">Distribuerede systemer</a></li>
+            <li><a href="#" id="itfBtn">Forandringsledelse</a></li>
+            <li><a href="#" id="makroBtn">Makroøkonomi</a></li>
+            <li><a href="#" id="vosBtn">VØS 3: Finansiering</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" id="logOutBtn">Log out</a></li>
+        </ul>
     </div>
 </nav>
 <div class="container">
-    <div class="row" id="nav-container">
-        <div class="row">
-            <div class="col-lg-6">
-                <button id="return-button">Tilbage til quizzes</button>
-                <div class="page-header"><h1>Opret Quiz</h1></div>
-                <div class="jumbotron">
-                    <div class="form-group">
-                        <label class="control-label" for="quizTitle">Title</label>
-                        <input type="text" class="form-control" id="quizTitle" placeHolder="Quiz title">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="quizDescription">Description</label>
-                        <textarea type="textarea" class="form-control" id="quizDescription" placeholder="Description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="quizAuthor">Author</label>
-                        <input type="text" class="form-control" id="quizAuthor" placeHolder="Quiz author">
-                    </div>
-                    <button id="createQ-button">Tilføj spørgsmål til quiz</button>
-                </div>
-            </div>
+    <div class="page-header"><h1>Create quiz</h1></div>
+    <div class="jumbotron">
+        <div class="form-group">
+            <label class="control-label" for="quizTitle">Title</label>
+            <input type="text" class="form-control" id="quizTitle" placeHolder="Quiz title">
         </div>
+        <div class="form-group">
+            <label class="control-label" for="quizDescription">Description</label>
+            <textarea type="textarea" class="form-control" id="quizDescription" placeholder="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="quizAuthor">Author</label>
+            <input type="text" class="form-control" id="quizAuthor" placeHolder="Quiz author">
+        </div>
+        <button class="btn btn-default navbar-btn" id="returnBtn">Cancel</button>
+        <button class="btn btn-default navbar-btn"id="createQuizBtn">Tilføj spørgsmål til quiz</button>
     </div>
 </div>
 
 <div class="container">
-
-    <div class="modal fade bd-example-modal-lg" id="questionModal" tabindex="-1" role="dialog"
-         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <h1 class="modal-title"></h1>
-                    <div class="question-added"></div>
                     <div class="modal-body">
 
                         <div class="form-group">
@@ -87,16 +74,17 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="addQuestion-button">+ Add question</button>
-                        <button type="button" class="btn btn-primary" id="saveQuiz-button">Finish quiz!</button>
+                        <button class="btn btn-default" id="addQuestionBtn">+ Add question</button>
+                        <button class="btn btn-default" id="saveQuizBtn">Finish quiz!</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <footer class="footer" align="center">
-    <p>2017 © All rights reserved - Doek Quiz Inc.</p>
+    <p>2017 © All rights reserved - DØKquiz Inc.</p>
 </footer>
 
 <script src="lib/js/jquery-3.2.1.js"></script>
@@ -104,6 +92,7 @@
 <script src="js/sdk.js"></script>
 <script src="js/adminCreateQ.js"></script>
 <script src="js/adminNav.js"></script>
+
 </body>
 </html>
 

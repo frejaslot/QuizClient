@@ -1,12 +1,10 @@
 $(document).ready(() => {
 
-    $("#signup-button").on("click", () => {
+    $("#signUpBtn").on("click", () => {
         window.location.href = "signUp.html";
     });
 
-
-    $("#login-button").on("click", () => {
-
+    $("#logInBtn").on("click", () => {
         let username = $("#username").val();
         let password = $("#password").val();
 
