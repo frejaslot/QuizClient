@@ -72,15 +72,17 @@ $(document).ready(() => {
 
         $('button.quizDelBtn').on('click', function () {
 
-            var name = $(this).closest("tr").find("td:eq(0)").text();
+            if (window.confirm("Do you want to delete this quiz?")) {
+                var name = $(this).closest("tr").find("td:eq(0)").text();
 
-            for (var i = 0; i < quizzes.length; i++) {
-                if (name === quizzes[i].quizTitle) {
-                    SDK.Storage.persist("chosenQuiz", quizzes[i]);
+                for (var i = 0; i < quizzes.length; i++) {
+                    if (name === quizzes[i].quizTitle) {
+                        SDK.Storage.persist("chosenQuiz", quizzes[i]);
+                    }
                 }
+                SDK.deleteQuiz((err, data) => {});
+                location.reload();
             }
-            SDK.deleteQuiz((err, data) => {});
-            location.reload();
         });
     });
 });

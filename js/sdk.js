@@ -197,16 +197,17 @@ const SDK = {
     },
 
     createOption: (option, optionToQuestionId, isCorrect, callback) => {
+        console.log(option + optionToQuestionId + isCorrect);
         SDK.request({
             data: {
                 option: option,
                 optionToQuestionId: optionToQuestionId,
                 isCorrect: isCorrect
             },
-            url: "/option",
             method: "POST",
+            url: "/option",
             headers: {
-                authorization: SDK.Storage.load("Token"),
+                authorization: SDK.Storage.load("myToken"),
             }
         }, (err, data) => {
             if (err) return callback(err);

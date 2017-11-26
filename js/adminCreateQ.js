@@ -73,10 +73,10 @@ $(document).ready(() => {
                     var createdQuiz = JSON.parse(data);
                     const quizId = createdQuiz.quizId;
 
-                    $("#addQuestionButton").click(() => {
+                    $("#addQuestion-button").click(() => {
                         const createdQuestion = $("#question").val();
-                        const questionId = createdQuestion.questionId;
-                        
+
+
                         SDK.createQuestion(createdQuestion, quizId, (err, data) => {
                             if (err && err.xhr.status == 400) {
                                 $(".form-group").addClass("Client fail");
@@ -84,12 +84,16 @@ $(document).ready(() => {
                             else if (err) {
                                 console.log("Error")
                             } else {
+                                console.log(data);
                                 $("#question").val("");
 
                                 $(".modal-title").html(`<h1>Question ${++i}</h1>`);
                                 $(".question-added").html(`<h4 id="text">Question added</h4>`);
 
                                 const newQuestion = JSON.parse(data);
+                                const optionToQuestionId = newQuestion.questionId;
+                                console.log(optionToQuestionId);
+                                //Måske er det ovenstående den er gal med Andy???
                                 const correct = $("#correct").val();
                                 const wrong1 = $("#wrong1").val();
                                 const wrong2 = $("#wrong2").val();
@@ -97,7 +101,8 @@ $(document).ready(() => {
 
                                 var isCorrect = 1;
 
-                                SDK.createOption(correct, questionId, isCorrect, (err, data) => {
+                                SDK.createOption(correct, optionToQuestionId, isCorrect, (err, data) => {
+                                    console.log(data);
                                     if (err && err.xhr.status == 400) {
                                         $(".form-group").addClass("Client fail");
                                     }
@@ -106,7 +111,7 @@ $(document).ready(() => {
                                     } else {
                                         $("#correct").val("")
 
-                                        SDK.createOption(wrong1, questionId, isCorrect, (err, data) => {
+                                        SDK.createOption(wrong1, optionToQuestionId, isCorrect, (err, data) => {
                                             if (err && err.xhr.status == 400) {
                                                 $(".form-group").addClass("Client fail");
                                             }
@@ -115,7 +120,7 @@ $(document).ready(() => {
                                             } else {
                                                 $("#wrong1").val("");
 
-                                                SDK.createOption(wrong2, questionId, isCorrect, (err, data) => {
+                                                SDK.createOption(wrong2, optionToQuestionId, isCorrect, (err, data) => {
                                                     if (err && err.xhr.status == 400) {
                                                         $(".form-group").addClass("Client fail");
                                                     }
@@ -124,7 +129,7 @@ $(document).ready(() => {
                                                     } else {
                                                         $("#wrong2").val("");
 
-                                                        SDK.createOption(wrong3, questionId, isCorrect, (err, data) => {
+                                                        SDK.createOption(wrong3, optionToQuestionId, isCorrect, (err, data) => {
                                                             if (err && err.xhr.status == 400) {
                                                                 $(".form-group").addClass("Client fail");
                                                             }
@@ -151,14 +156,14 @@ $(document).ready(() => {
 
 
                     });
-                    $("#saveChangesButton").click(() => {
-                        window.location.href = "courseview.html"
+                    $("#saveQuiz-button").click(() => {
 
-
+                        if (window.confirm("Is this quiz done?")) {
+                            window.location.href = "adminQuiz.html"
+                        }
                     });
                 }
             });
         }
     });
-
 });
