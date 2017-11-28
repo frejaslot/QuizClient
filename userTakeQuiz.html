@@ -16,7 +16,6 @@
             <ul class="nav navbar-nav">
                 <li><a href="user.html">Profile</a></li>
                 <li class="active"><a href="userCourse.html"><b>Quiz!</b></a></li>
-                <li><a href="userResult.html">Result</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" id="logOut-button">Log out</a></li>
@@ -24,6 +23,22 @@
         </div>
     </div>
 </nav>
+
+<div class="container">
+    <h1 class="page-header"></h1>
+    <h4 class="description"></h4>
+    <div class="jumbotron">
+        <table class="table table-striped table-hover" id="questionHead">
+            <tbody id="QuestionList"></tbody>
+        </table>
+        <div class="modal-footer">
+            <button class="btn btn-danger" id="returnBtn">Return to quizzes</button>
+            <button class="btn btn-primary" id="saveAnswerBtn">Submit answers</button>
+            <button class="btn btn-success" id="resultBtn">Show results</button>
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <div class="modal fade bd-example-modal-lg" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -45,29 +60,16 @@
 </div>
 
 <div class="container">
-    <h1 class="page-header"></h1>
-    <h4 class="description"></h4>
-    <div class="jumbotron">
-        <table class="table table-striped table-hover" id="questionHead">
-            <tbody id="QuestionList"></tbody>
-        </table>
-        <div class="modal-footer">
-            <button class="btn btn-danger" id="returnBtn">Return to quizzes</button>
-            <button class="btn btn-primary" id="saveAnswerBtn">Submit answers</button>
-            <button class="btn btn-success" id="resultBtn">Show results</button>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="modal fade bd-example-modal-lg" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
-                    <h1>Right answers</h1>
-                    <div class="modal-body">
-                        <table id="rightAnswers"></table>
+                    <h1>Correct answers</h1>
+                    <div class="modal-body" id="resultDIV">
+                        <table id="resultT"></table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="closeBtn btn btn-default" id="closeResBtn">Close</button>
                     </div>
                 </div>
             </div>

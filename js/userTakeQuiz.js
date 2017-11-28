@@ -62,7 +62,7 @@ $(document).ready(() => {
             });
 
             $('#submitModal').modal('show');
-                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${Answers}</b> questions right.</p><p> You can now click on 'Show results' to see the right answers</p>`);
+                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${Answers}</b> questions correct.</p><p> You can now click on 'Show results' to see the correct answers on all questions.</p>`);
 
                 $("#closeBtn").on("click", () => {
                     $("#result").html("");
@@ -71,11 +71,30 @@ $(document).ready(() => {
 
                 $("#resultBtn").show()
             });
-        });
 
         $("#resultBtn").on("click", () => {
-            $('#answerModal').modal('show');
-            $("#rightAnswers").append(`<div id="${questions.questionId}"><p><b>${questions.question}</b></p></div>`)
+            $('#resultModal').modal('show');
+
+            questions.forEach((qu) => {
+                $('#resultDIV').append(`<div id=res${qu.questionId}><p><b>${qu.question}</b></p></div>`);
+
+                SDK.loadOptions(qu.questionId, (err, data) => {
+                    var options = JSON.parse(data);
+                    for(let i = 0; i < options.length; i++) {
+                        if(options[i].isCorrect==1) {
+                            $(`#res${qu.questionId}`).append(`<p>Correct answer: ${options[i].option} </p>`);
+                        }
+                    }
+                });
+            });
+
+            $("#closeResBtn").on("click", () => {
+                $("#resultDIV").html("");
+                $('#resultModal').modal('hide');
+            });
+        });
 
         });
+
+
     });
