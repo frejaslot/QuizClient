@@ -49,24 +49,33 @@ $(document).ready(() => {
 
         $("#saveAnswerBtn").on("click", () => {
 
+            let Answers = 0;
             let correctAnswers = 0;
 
             $(".answer-radio").each(function () {
                 if ($(this).is(":checked")) {
-                    console.log($(this).val());
-                    if($(this).val() == 1){
+                    Answers++;
+                    if ($(this).val() == 1) {
                         correctAnswers++;
                     }
                 }
             });
 
-            window.alert(correctAnswers);
+            $('#submitModal').modal('show');
+                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${Answers}</b> questions right.</p><p> You can now click on 'Show results' to see the right answers</p>`);
 
-            $("#resultBtn").show()
+                $("#closeBtn").on("click", () => {
+                    $("#result").html("");
+                    $('#submitModal').modal('hide');
+                });
+
+                $("#resultBtn").show()
+            });
         });
 
         $("#resultBtn").on("click", () => {
-            //modal der viser svarene
+            $('#answerModal').modal('show');
+            $("#rightAnswers").append(`<div id="${questions.questionId}"><p><b>${questions.question}</b></p></div>`)
+
         });
     });
-});

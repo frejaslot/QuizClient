@@ -24,6 +24,26 @@
         </div>
     </div>
 </nav>
+
+<div class="container">
+    <div class="modal fade bd-example-modal-lg" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1>Your answers</h1>
+                    <div class="modal-body">
+                        <p id="result"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="closeBtn btn btn-default" id="closeBtn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <h1 class="page-header"></h1>
     <h4 class="description"></h4>
@@ -35,6 +55,22 @@
             <button class="btn btn-danger" id="returnBtn">Return to quizzes</button>
             <button class="btn btn-primary" id="saveAnswerBtn">Submit answers</button>
             <button class="btn btn-success" id="resultBtn">Show results</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="modal fade bd-example-modal-lg" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1>Right answers</h1>
+                    <div class="modal-body">
+                        <table id="rightAnswers"></table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
