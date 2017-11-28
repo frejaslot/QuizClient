@@ -25,33 +25,33 @@ $(document).ready(() => {
         if (err) throw err;
         var questions = JSON.parse(data);
 
-        i = 0;
-        while (i < questions.length) {
-            var question = questions[i].question;
-            var questionId = questions[i].questionId;
+        questions.forEach((q) => {
+            var question = q.question;
+            var questionId = q.questionId;
 
-            loadOptions(question);
+            $(".table").append(`<div id="${questionId}"><p><b>${question}</b></p></div>`)
 
-            function loadOptions(question) {
-                SDK.loadOptions(questionId, (err, data) => {
-                    $(".table").append(`<p><b>${question}</b></p>`);
+            SDK.loadOptions(questionId, (err, data) => {
 
-                    var options = JSON.parse(data);
-                    var optionLength = options.length;
+                var options = JSON.parse(data);
 
-                    for (var k = 0; k < optionLength; k++) {
-                        $(".table").append(`<p><input type="radio" name="option${questionId}" value="${options.isCorrect}">  ${options[k].option} </p>`);
-                    }
-                    console.log(questionId);
+                options.forEach((option) => {
+                    $(`#${questionId}`).append(`<p><input type="radio" name="option${questionId}" value="${option.isCorrect}"> ${option.option} </p>`);
                 });
-                i++;
-            }
-            $("#returnBtn").on("click", () => {
-                window.location.href = "userQuiz.html";
             });
-            $("#saveAnswerBtn").on("click", () => {
-                window.alert("Du har svaret rigtigt");
-            });
-        }
+        });
+        $("#returnBtn").on("click", () => {
+            window.location.href = "userQuiz.html";
+        });
+        $("#saveAnswerBtn").on("click", () => {
+
+            let correctAnswers = 0;
+
+            for (i = 0; i < options.length; i++) {
+             //   if (#input.radio().checked() && options[i].isCorrect == 1) {
+                    correctAnswers++;
+                }
+            window.alert(correctAnswers);
+        });
     });
 });
