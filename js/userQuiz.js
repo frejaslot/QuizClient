@@ -30,10 +30,10 @@ $(document).ready(() => {
 
         $.each(quizzes, (i, val) => {
             var tr = '<tr>';
-            tr += '<td>' + quizzes[i].quizTitle + '</td>';
-            tr += '<td>' + quizzes[i].quizDescription + '</td>';
-            tr += '<td>' + quizzes[i].createdBy + '</td>';
-            tr += '<td><button class="quizBtn btn btn-primary pull-left" data-key="' + (i+1) + '">Take this quiz!</button></td>';
+            tr += '<td width="25%">' + quizzes[i].quizTitle + '</td>';
+            tr += '<td width="40%">' + quizzes[i].quizDescription + '</td>';
+            tr += '<td width="20%">' + quizzes[i].createdBy + '</td>';
+            tr += '<td width="15%"><button class="quizBtn btn btn-primary pull-left" data-key="' + (i+1) + '">Take this quiz!</button></td>';
             tr += '</tr>';
             $("#quizList").append(tr);
         });

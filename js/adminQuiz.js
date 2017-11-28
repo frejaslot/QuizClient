@@ -19,10 +19,10 @@ $(document).ready(() => {
 
         $.each(quizzes, function (i, val) {
             var tr = '<tr>';
-            tr += '<td>' + quizzes[i].quizTitle + '</td>';
-            tr += '<td>' + quizzes[i].quizDescription + '</td>';
-            tr += '<td>' + quizzes[i].createdBy + '</td>';
-            tr += '<td><button class="quizDelBtn btn btn-danger pull-left" data-key="' + (i+1) + '">Delete quiz</button></td>';
+            tr += '<td width="20%">' + quizzes[i].quizTitle + '</td>';
+            tr += '<td width="40%">' + quizzes[i].quizDescription + '</td>';
+            tr += '<td width="30%">' + quizzes[i].createdBy + '</td>';
+            tr += '<td width="20%"><button class="quizDelBtn btn btn-danger pull-left" data-key="' + (i+1) + '">Delete quiz</button></td>';
             tr += '</tr>';
             i + 1;
             $("#quizList").append(tr);

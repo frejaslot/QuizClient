@@ -23,7 +23,7 @@ $(document).ready(() => {
 
         $.each(courses, (i, val) => {
             var tr = '<tr>';
-            tr += '<td> <button class="courseBtn" data-key="' + (i+1) + '">'+courses[i].courseTitle + '</button></td>';
+            tr += '<td> <button class="courseBtn btn btn-lg btn-default btn-block" data-key="' + (i+1) + '">'+courses[i].courseTitle + '</button></td>';
             $("#courseList").append(tr);
         });
 

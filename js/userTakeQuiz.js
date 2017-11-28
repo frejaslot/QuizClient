@@ -1,8 +1,9 @@
 $(document).ready(() => {
     const currentUser = SDK.currentUser();
-    const quiz = SDK.Storage.load("chosenQuiz");
+    const chosenQuiz = SDK.Storage.load("chosenQuiz");
 
-    $(".page-header").html(`<h1>${quiz.quizTitle}</h1>`);
+    $(".page-header").html(`<h1>${chosenQuiz.quizTitle}</h1>`);
+    $(".description").html(`<h4>${chosenQuiz.quizDescription}</h4>`);
 
     $("#logOut-button").on("click", () => {
 
@@ -20,34 +21,37 @@ $(document).ready(() => {
         });
     });
 
-    $(".header").html(`<h1 align="center">${quiz.quizTitle}</h1>`);
-    $(".header").html(`<h2 align="center">${quiz.quizDescription}</h2>`);
-
-    i = 0;
     SDK.loadQuestions((err, data)=> {
-        var $table = $(".table");
         if (err) throw err;
         var questions = JSON.parse(data);
 
+        i = 0;
         while (i < questions.length) {
-            var question = (questions[i].question);
+            var question = questions[i].question;
+            var questionId = questions[i].questionId;
 
             loadOptions(question);
 
             function loadOptions(question) {
-
-                SDK.loadOptions(questions[i].questionId, (err, data) => {
+                SDK.loadOptions(questionId, (err, data) => {
                     $(".table").append(`<p><b>${question}</b></p>`);
 
                     var options = JSON.parse(data);
                     var optionLength = options.length;
 
                     for (var k = 0; k < optionLength; k++) {
-                        $(".table").append(`<p><input type="radio" name="option${question.questionId}"<br>  ${options[k].option} </p>`);
+                        $(".table").append(`<p><input type="radio" name="option${questionId}" value="${options.isCorrect}">  ${options[k].option} </p>`);
                     }
+                    console.log(questionId);
                 });
                 i++;
             }
+            $("#returnBtn").on("click", () => {
+                window.location.href = "userQuiz.html";
+            });
+            $("#saveAnswerBtn").on("click", () => {
+                window.alert("Du har svaret rigtigt");
+            });
         }
     });
 });

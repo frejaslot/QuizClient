@@ -32,8 +32,8 @@ const SDK = {
                 username: username,
                 password: password
             },
-            url: "/user/signup",
-            method: "POST"
+            method: "POST",
+            url: "/user/signup"
         }, (err, data) => {
             if (err) return callback(err);
             callback(null, data);
@@ -46,8 +46,8 @@ const SDK = {
                 username: username,
                 password: password
             },
-            url: "/user/login",
-            method: "POST"
+            method: "POST",
+            url: "/user/login"
         }, (err, data) => {
             if (err) return callback(err);
             SDK.Storage.persist("myToken", data);
@@ -139,8 +139,8 @@ const SDK = {
                 courseId: courseId,
                 questionCount: questionCount
             },
-            url: "/quiz/",
             method: "POST",
+            url: "/quiz/",
             headers: {
                 authorization: SDK.Storage.load("myToken"),
             },
