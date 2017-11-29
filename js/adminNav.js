@@ -20,17 +20,14 @@ $(document).ready(() => {
         if (err) throw err;
         const courses = JSON.parse(data);
         console.log(courses);
-
         $("#vosBtn").on("click", () => {
             SDK.Storage.persist("chosenCourse", courses[3])
             window.location.href = "adminQuiz.html";
         });
-
         $("#disBtn").on("click", () => {
             SDK.Storage.persist("chosenCourse", courses[0])
             window.location.href = "adminQuiz.html";
         });
-
         $("#itfBtn").on("click", () => {
             SDK.Storage.persist("chosenCourse", courses[1])
             window.location.href = "adminQuiz.html";

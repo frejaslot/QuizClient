@@ -1,13 +1,13 @@
 $(document).ready(() => {
+    $("#resultBtn").hide()
+
     const currentUser = SDK.currentUser();
     const chosenQuiz = SDK.Storage.load("chosenQuiz");
-
-    $("#resultBtn").hide()
 
     $(".page-header").html(`<h1>${chosenQuiz.quizTitle}</h1>`);
     $(".description").html(`<h4>${chosenQuiz.quizDescription}</h4>`);
 
-    $("#logOut-button").on("click", () => {
+    $("#logOutBtn").on("click", () => {
 
         const userId = currentUser.userId;
         SDK.logOut(userId, (err, data) => {
@@ -36,6 +36,8 @@ $(document).ready(() => {
             SDK.loadOptions(questionId, (err, data) => {
 
                 var options = JSON.parse(data);
+                options = shuffle(options);
+                console.log(options);
 
                 options.forEach((option) => {
                     $(`#${questionId}`).append(`<p><input type="radio" class="answer-radio" name="option${questionId}" value="${option.isCorrect}"> ${option.option} </p>`);
@@ -62,7 +64,8 @@ $(document).ready(() => {
             });
 
             $('#submitModal').modal('show');
-                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${Answers}</b> questions correct.</p><p> You can now click on 'Show results' to see the correct answers on all questions.</p>`);
+                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${Answers}</b> questions correct.</p>
+                    <p> You can now click on 'Show results' to see the correct answers on all questions.</p>`);
 
                 $("#closeBtn").on("click", () => {
                     $("#result").html("");
@@ -94,7 +97,24 @@ $(document).ready(() => {
             });
         });
 
-        });
-
-
     });
+
+    //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
+});

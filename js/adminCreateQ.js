@@ -10,14 +10,14 @@ $(document).ready(() => {
         const quizDescription = $("#quizDescription").val();
         const chosenCourse = SDK.Storage.load("chosenCourse");
         const courseId = chosenCourse.courseId;
-        const questionCount = 5;
+        const questionCount = 0;
 
         if(!quizTitle || !quizDescription || !createdBy) {
             alert("Information is missing. Please try again");
         } else {
             SDK.createQuiz(createdBy, quizTitle, quizDescription, courseId, questionCount, (err, data) => {
                 if (err && err.xhr.status == 400) {
-                    $(".form-group").addClass("Client fail");
+                    console.log("Client fail");
                 }
                 else if (err) {
                     console.log("Error")
@@ -35,7 +35,7 @@ $(document).ready(() => {
                     $(".modal-title").html(`<h1>${i}. Question</h1>`);
 
 
-                    $("#addQuestionBtn").click(() => {
+                    $("#newQuestionBtn").on("click", () => {
                         const createdQuestion = $("#question").val();
 
                         if(!createdQuestion) {
@@ -43,7 +43,7 @@ $(document).ready(() => {
                         }else {
                             SDK.createQuestion(createdQuestion, quizId, (err, data) => {
                                 if (err && err.xhr.status == 400) {
-                                    $(".form-group").addClass("Client fail");
+                                    console.log("Client fail");
                                 }
                                 else if (err) {
                                     console.log("Error")
@@ -60,52 +60,46 @@ $(document).ready(() => {
                                     if (!correct || !wrong1 || !wrong2 || !wrong3) {
                                         alert("Information is missing. Please try again");
                                     } else {
-
                                         $(".modal-title").html(`<h1>${++i}. question</h1>`);
 
                                         var isCorrect = 1;
                                         SDK.createOption(correct, optionToQuestionId, isCorrect, (err, data) => {
-                                            console.log(data);
                                             if (err && err.xhr.status == 400) {
-                                                $(".form-group").addClass("Client fail");
-                                            }
-                                            else if (err) {
+                                                console.log("Client fail");
+                                            } else if (err) {
                                                 console.log("Error")
                                             } else {
                                                 $("#correct").val("")
+                                            }
+                                        });
 
-                                                SDK.createOption(wrong1, optionToQuestionId, isCorrect = 0, (err, data) => {
-                                                    if (err && err.xhr.status == 400) {
-                                                        $(".form-group").addClass("Client fail");
-                                                    }
-                                                    else if (err) {
-                                                        console.log("Error")
-                                                    } else {
-                                                        $("#wrong1").val("");
+                                        SDK.createOption(wrong1, optionToQuestionId, isCorrect = 0, (err, data) => {
+                                            if (err && err.xhr.status == 400) {
+                                                console.log("Client fail");
+                                            } else if (err) {
+                                                console.log("Error")
+                                            } else {
+                                                $("#wrong1").val("");
+                                            }
+                                        });
 
-                                                        SDK.createOption(wrong2, optionToQuestionId, isCorrect = 0, (err, data) => {
-                                                            if (err && err.xhr.status == 400) {
-                                                                $(".form-group").addClass("Client fail");
-                                                            }
-                                                            else if (err) {
-                                                                console.log("Error")
-                                                            } else {
-                                                                $("#wrong2").val("");
+                                        SDK.createOption(wrong2, optionToQuestionId, isCorrect = 0, (err, data) => {
+                                            if (err && err.xhr.status == 400) {
+                                                console.log("Client fail");
+                                            } else if (err) {
+                                                console.log("Error")
+                                            } else {
+                                                $("#wrong2").val("");
+                                            }
+                                        });
 
-                                                                SDK.createOption(wrong3, optionToQuestionId, isCorrect = 0, (err, data) => {
-                                                                    if (err && err.xhr.status == 400) {
-                                                                        $(".form-group").addClass("Client fail");
-                                                                    }
-                                                                    else if (err) {
-                                                                        console.log("Error")
-                                                                    } else {
-                                                                        $("#wrong3").val("");
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                });
+                                        SDK.createOption(wrong3, optionToQuestionId, isCorrect = 0, (err, data) => {
+                                            if (err && err.xhr.status == 400) {
+                                                console.log("Client fail");
+                                            } else if (err) {
+                                                console.log("Error")
+                                            } else {
+                                                $("#wrong3").val("");
                                             }
                                         });
                                     }
@@ -113,7 +107,7 @@ $(document).ready(() => {
                             });
                         }
                     });
-                    $("#saveQuizBtn").click(() => {
+                    $("#saveBtn").on("click", () => {
                         if (window.confirm("Is this quiz done?")) {
                             window.location.href = "adminQuiz.html"
                         }

@@ -1,7 +1,7 @@
 $(document).ready(() => {
     const currentUser = SDK.currentUser();
 
-    $("#logOut").on("click", () => {
+    $("#logOutBtn").on("click", () => {
 
         const userId = currentUser.userId;
         SDK.logOut(userId, (err, data) => {

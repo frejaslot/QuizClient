@@ -10,29 +10,26 @@ $(document).ready(() => {
         const quizzes = JSON.parse(data);
         console.log(quizzes);
 
-        $("#tablehead").append("<thead>\n" +
-            "<th>Title</th>\n" +
-            "<th>Description</th>\n" +
-            "<th>Created By</th>\n" +
-            "<th><button class=\"quizCreateBtn btn btn-success pull-left\">Create quiz</button></th>\n" +
-            "</thead>")
+        $("#tablehead").append(`<thead>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created By</th>
+            <th><button class=\"quizCreateBtn btn btn-success pull-left\">Create quiz</button></th>
+        </thead>`);
 
-        $.each(quizzes, function (i, val) {
-            var tr = '<tr>';
-            tr += '<td width="20%">' + quizzes[i].quizTitle + '</td>';
-            tr += '<td width="40%">' + quizzes[i].quizDescription + '</td>';
-            tr += '<td width="30%">' + quizzes[i].createdBy + '</td>';
-            tr += '<td width="20%"><button class="quizDelBtn btn btn-danger pull-left" data-key="' + (i+1) + '">Delete quiz</button></td>';
-            tr += '</tr>';
-            i + 1;
-            $("#quizList").append(tr);
+        $.each(quizzes, (i, val) => {
+            $("#quizList").append(`
+            <tr><td width="20%">${quizzes[i].quizTitle}</td>
+            <td width="40%">${quizzes[i].quizDescription}</td>
+            <td width="30%">${quizzes[i].createdBy}</td>
+            <td width="20%"><button class="quizDelBtn btn btn-danger pull-left">Delete quiz</button></td></tr>`);
         });
 
-        $('button.quizCreateBtn').on('click', function () {
+        $('.quizCreateBtn').on("click", () => {
             window.location.href = "adminCreateQ.html";
         });
 
-        $('button.quizDelBtn').on('click', function () {
+        $('.quizDelBtn').on('click', function () {
 
             if (window.confirm("Do you want to delete this quiz?")) {
                 var name = $(this).closest("tr").find("td:eq(0)").text();
