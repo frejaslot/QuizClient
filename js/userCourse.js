@@ -1,43 +1,30 @@
 $(document).ready(() => {
-    const currentUser = SDK.currentUser();
 
-    $("#logOutBtn").on("click", () => {
-
-        const userId = currentUser.userId;
-        SDK.logOut(userId, (err, data) => {
-            if(err && err.xhr.status === 401) {
-                $(".form-group").addClass("has-error");
-            } else {
-                window.location.href = "index.html";
-                SDK.Storage.remove("myUser")
-                SDK.Storage.remove("myToken")
-                SDK.Storage.remove("chosenCourse")
-                SDK.Storage.remove("chosenQuiz")
-            }
-        });
-    });
-
+    //SDK request for loading all courses
     SDK.loadCourses((err, data)=>{
+        if (err) throw err;
         const courses = JSON.parse(data);
-        console.log(courses);
 
+        //For each loop for adding course buttons to table
         $.each(courses, (i, val) => {
-            var tr = '<tr>';
-            tr += '<td> <button class="courseBtn btn btn-lg btn-default btn-block" data-key="' + (i+1) + '">'+courses[i].courseTitle + '</button></td>';
-            $("#courseList").append(tr);
+            $("#courseList").append(`
+           <tr><td><button class="courseBtn btn btn-lg btn-default btn-block">${courses[i].courseTitle}</button></td>`);
         });
 
-        $('button.courseBtn').on('click', function () {
-            var name = $(this).text();
+        //Listener on course button from table
+        $('.courseBtn').on("click", function () {
+            //Saving the course title of the selected button
+            var title = $(this).text();
             window.location.href = "userQuiz.html";
 
+            //For loop to go though all courses
             for (var i = 0; i < courses.length; i++) {
-                if (name === courses[i].courseTitle) {
-                    SDK.Storage.persist("chosenCourse", courses[i])
+                //Verify that title of selected button and course title match
+                if (title === courses[i].courseTitle) {
+                    //SDK request for storing the selected course
+                    SDK.Storage.persist("selectedCourse", courses[i])
                 }
             }
-
         });
-
     });
 });

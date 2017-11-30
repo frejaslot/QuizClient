@@ -1,73 +1,68 @@
 $(document).ready(() => {
+
     $("#resultBtn").hide()
 
-    const currentUser = SDK.currentUser();
-    const chosenQuiz = SDK.Storage.load("chosenQuiz");
+    //SDK request for loading selected quiz from local storage
+    const selectedQuiz = SDK.Storage.load("selectedQuiz");
+    $(".page-header").html(`<h1>${selectedQuiz.quizTitle}</h1>`);
+    $(".description").html(`<h4>${selectedQuiz.quizDescription}</h4>`);
 
-    $(".page-header").html(`<h1>${chosenQuiz.quizTitle}</h1>`);
-    $(".description").html(`<h4>${chosenQuiz.quizDescription}</h4>`);
-
-    $("#logOutBtn").on("click", () => {
-
-        const userId = currentUser.userId;
-        SDK.logOut(userId, (err, data) => {
-            if (err && err.xhr.status === 401) {
-                $(".form-group").addClass("has-error");
-            } else {
-                window.location.href = "index.html";
-                SDK.Storage.remove("myUser")
-                SDK.Storage.remove("myToken")
-                SDK.Storage.remove("chosenCourse")
-                SDK.Storage.remove("chosenQuiz")
-            }
-        });
-    });
-
+    //SDK request for loading all questions
     SDK.loadQuestions((err, data) => {
         if (err) throw err;
         var questions = JSON.parse(data);
 
+        //For each loop for adding all the questions to the table
         questions.forEach((q) => {
             var question = q.question;
             var questionId = q.questionId;
-
             $(".table").append(`<div id="${questionId}"><p><b>${question}</b></p></div>`)
 
+            //SDK request for loading all the options
             SDK.loadOptions(questionId, (err, data) => {
-
+                if (err) throw err;
                 var options = JSON.parse(data);
-                options = shuffle(options);
-                console.log(options);
 
+                //Function to mix options for a random order
+                options = shuffle(options);
+
+                //For each loop for adding options to the specific question (with radio buttons)
                 options.forEach((option) => {
                     $(`#${questionId}`).append(`<p><input type="radio" class="answer-radio" name="option${questionId}" value="${option.isCorrect}"> ${option.option} </p>`);
                 });
             });
         });
 
+        //Listener on return button
         $("#returnBtn").on("click", () => {
             window.location.href = "userQuiz.html";
         });
 
+        //Listener on save answer button
         $("#saveAnswerBtn").on("click", () => {
-
-            let Answers = 0;
+            let totalQuestions = 0;
             let correctAnswers = 0;
 
+            //Function to count number of questions answered
             $(".answer-radio").each(function () {
                 if ($(this).is(":checked")) {
-                    Answers++;
+                    totalQuestions++;
+                    //Function to count number of correct answers
                     if ($(this).val() == 1) {
                         correctAnswers++;
                     }
                 }
             });
 
+            //Modal that shows score, and makes result button appear
             $('#submitModal').modal('show');
-                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${Answers}</b> questions correct.</p>
+                //Message of modal with score from quiz
+                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${totalQuestions}</b> questions correct.</p>
                     <p> You can now click on 'Show results' to see the correct answers on all questions.</p>`);
 
+                //Listener on close button
                 $("#closeBtn").on("click", () => {
+                    //Clearing the html of submit modal
                     $("#result").html("");
                     $('#submitModal').modal('hide');
                 });
@@ -75,23 +70,32 @@ $(document).ready(() => {
                 $("#resultBtn").show()
             });
 
+        //Listener on result button
         $("#resultBtn").on("click", () => {
+            //Result modal appears
             $('#resultModal').modal('show');
 
-            questions.forEach((qu) => {
-                $('#resultDIV').append(`<div id=res${qu.questionId}><p><b>${qu.question}</b></p></div>`);
+            //For each loop for adding all the questions to modal
+            questions.forEach((q) => {
+                $('#resultDIV').append(`<div id=res${q.questionId}><p><b>${q.question}</b></p></div>`);
 
-                SDK.loadOptions(qu.questionId, (err, data) => {
+                //SDK request for adding the correct answer underneath question
+                SDK.loadOptions(q.questionId, (err, data) => {
+                    if (err) throw err;
                     var options = JSON.parse(data);
+
+                    //For loop for finding and printing the correct answers
                     for(let i = 0; i < options.length; i++) {
                         if(options[i].isCorrect==1) {
-                            $(`#res${qu.questionId}`).append(`<p>Correct answer: ${options[i].option} </p>`);
+                            $(`#res${q.questionId}`).append(`<p>Correct answer: ${options[i].option} </p>`);
                         }
                     }
                 });
             });
 
+            //Listener on close button
             $("#closeResBtn").on("click", () => {
+                //Clearing the html of result modal
                 $("#resultDIV").html("");
                 $('#resultModal').modal('hide');
             });
@@ -99,7 +103,8 @@ $(document).ready(() => {
 
     });
 
-    //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    /*Function to mixing options. Is found on this link:
+    https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array*/
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
 
