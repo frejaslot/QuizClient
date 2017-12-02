@@ -54,10 +54,16 @@ $(document).ready(() => {
                 }
             });
 
+            //Saving percentage of correct answers as const
+            const quizWidth = correctAnswers/totalQuestions*100;
+
             //Modal that shows score, and makes result button appear
             $('#submitModal').modal('show');
-                //Message of modal with score from quiz
-                $("#result").append(`<p>You got <b>${correctAnswers}</b> out of <b>${totalQuestions}</b> questions correct.</p>
+                //Modal message with progress bar and score from quiz
+                $("#result").append(`
+                    <div><div class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" style="width:${quizWidth}%"></div></div>
+                    <p>You got <b>${correctAnswers}</b> out of <b>${totalQuestions}</b> questions correct.</p>
                     <p> You can now click on 'Show results' to see the correct answers on all questions.</p>`);
 
                 //Listener on close button
