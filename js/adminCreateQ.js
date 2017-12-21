@@ -27,7 +27,8 @@ $(document).ready(() => {
                 } else if (err) {
                     window.alert("An error has occurred. Please try again");
                 } else {
-                    //Modal for creating question
+                    //Modal for creating questions. The modal is inspired from this link:
+                    // https://github.com/andytranski/QuizClient/blob/master/js/newQuizHandler.js
                     $('#questionModal').modal('show');
                     $("#saveBtn").hide();
 
